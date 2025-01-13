@@ -213,9 +213,11 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
 
 endif(GISMO_BUILD_LIB)
 
-list (FIND GISMO_OPTIONAL "gsOpenNURBS" _index)
+list (FIND GISMO_OPTIONAL "gsOpennurbs" _index)
 if (${_index} GREATER -1)
   find_package(openNURBS REQUIRED)
+
+  #TODO Check found if not cmake error
   target_link_libraries(${PROJECT_NAME} openNURBS)
 endif()
 
