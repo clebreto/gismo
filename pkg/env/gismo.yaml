@@ -1,0 +1,7 @@
+name: gismo
+channels:
+  - conda-forge
+  - dtk
+dependencies:
+  - eigen
+  - opennurbs
