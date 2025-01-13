@@ -213,6 +213,12 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
 
 endif(GISMO_BUILD_LIB)
 
+list (FIND GISMO_OPTIONAL "gsOpenNURBS" _index)
+if (${_index} GREATER -1)
+  find_package(openNURBS REQUIRED)
+  target_link_libraries(${PROJECT_NAME} openNURBS)
+endif()
+
 if (EIGEN_USE_MKL_ALL)
   # Note: Download and install "Intel oneAPI Base Toolkit"
   # Then source /path-to/intel/oneapi/setvars.sh
