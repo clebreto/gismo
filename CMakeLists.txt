@@ -94,11 +94,6 @@ endif()
 ## Cmake Inclusions and configuration options
 ## #################################################################
 
-#Fix for Eigen directory
-if (NOT EXISTS "${PROJECT_BINARY_DIR}/Eigen")
-  execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink ${PROJECT_SOURCE_DIR}/external/gsEigen ${PROJECT_BINARY_DIR}/Eigen)
-endif()
-
 set(CMAKE_INSTALL_MESSAGE NEVER)
 
 #Use solution folders for Visual Studio
@@ -189,6 +184,10 @@ set(INCLUDE_INSTALL_DIR include CACHE STRING "Installation directory for header 
 #functions to fetch(download) head revision from git or Subversion
 include(gsFetch)
 
+find_package (Eigen3 3.3 REQUIRED NO_MODULE)
+
+include_directories(${EIGEN3_INCLUDE_DIRS})
+
 if (EIGEN_USE_MKL_ALL)
   # See http://eigen.tuxfamily.org/dox/TopicUsingIntelMKL.html
   find_package(MKL REQUIRED)
@@ -203,6 +202,7 @@ endif()
 if (";${GISMO_OPTIONAL};" MATCHES ";gsCoDiPack;")
   gismo_fetch_module(gsCoDiPack)
 endif()
+
 
 #first time
 include_directories(${GISMO_INCLUDE_DIRS})

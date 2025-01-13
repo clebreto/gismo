@@ -27,7 +27,6 @@ if(GISMO_BUILD_CPPLOT)
 add_subdirectory(cpplot)
 endif(GISMO_BUILD_CPPLOT)
 
-#add_subdirectory(Eigen)
 #add_subdirectory(rapidxml)
 
 #include_directories(${CMAKE_CURRENT_SOURCE_DIR})

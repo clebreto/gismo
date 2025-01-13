@@ -30,7 +30,7 @@ template <class T, bool IsRowMajor = true>
 class gsFiberMatrix
 {
 public:
-    typedef gsEigen::SparseVector<T> Fiber;
+    typedef Eigen::SparseVector<T> Fiber;
 
     struct RowBlockXpr;
 
@@ -257,7 +257,7 @@ public:
     }
 
     template <class Derived>
-    void toSparseMatrix(gsEigen::SparseMatrixBase<Derived>& m) const
+    void toSparseMatrix(Eigen::SparseMatrixBase<Derived>& m) const
     {
         m.derived().resize( rows(), cols() );
         m.derived().reserve( nonZeros() );

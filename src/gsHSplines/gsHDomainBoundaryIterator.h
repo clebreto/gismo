@@ -285,9 +285,9 @@ public:
     using gsDomainIterator<T>::center;
     using gsDomainIterator<T>::m_basis;
 
-#   define Eigen gsEigen
+
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW
-#   undef Eigen
+
 
 private:
 
