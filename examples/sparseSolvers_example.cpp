@@ -157,16 +157,18 @@ int main(int argc, char** argv)
     if (!fmat.empty()){x0 = x;}
     report( x, x0, succeeded );
 
-    gsSparseSolver<>::QR solverQR;
-    timer.restart();
-    solverQR.compute(Q);
-    compute_time = timer.stop();
-    timer.restart();
-    x = solverQR.solve(b);
-    solver_time = timer.stop();
-    gsInfo << "Solve Ax = b with Eigen's QR factorization.\n";
-    if (!fmat.empty()){x0 = x;}
-    report( x, x0, succeeded );
+    if(mat_size>100000){
+      gsSparseSolver<>::QR solverQR;
+      timer.restart();
+      solverQR.compute(Q);
+      compute_time = timer.stop();
+      timer.restart();
+      x = solverQR.solve(b);
+      solver_time = timer.stop();
+      gsInfo << "Solve Ax = b with Eigen's QR factorization.\n";
+      if (!fmat.empty()){x0 = x;}
+      report( x, x0, succeeded );
+    }
 
     gsSparseSolver<>::LU solverLU;
     timer.restart();
