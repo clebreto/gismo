@@ -168,6 +168,11 @@ int main(int argc, char *argv[])
         // gsDebugVar(A.rhs().transpose()   );
         gsInfo<< "." <<std::flush;// Assemblying done
 
+        gsFileData<> fdout;
+        fdout<<A.matrix();
+        fdout<<A.rhs();
+        fdout.saveCompressed("poissonMatrix");
+
         timer.restart();
         solver.compute( A.matrix() );
         solVector = solver.solve(A.rhs());
