@@ -184,7 +184,7 @@ set(INCLUDE_INSTALL_DIR include CACHE STRING "Installation directory for header 
 #functions to fetch(download) head revision from git or Subversion
 include(gsFetch)
 
-find_package (Eigen3 3.3 REQUIRED NO_MODULE)
+find_package(Eigen3 3.3 REQUIRED NO_MODULE)
 
 include_directories(${EIGEN3_INCLUDE_DIRS})
 
@@ -203,6 +203,9 @@ if (";${GISMO_OPTIONAL};" MATCHES ";gsCoDiPack;")
   gismo_fetch_module(gsCoDiPack)
 endif()
 
+find_package(TCLAP 1.4 REQUIRED)
+get_target_property(TCLAP_INCLUDE_DIRS TCLAP::TCLAP  INTERFACE_INCLUDE_DIRECTORIES)
+include_directories(${TCLAP_INCLUDE_DIRS})
 
 #first time
 include_directories(${GISMO_INCLUDE_DIRS})
