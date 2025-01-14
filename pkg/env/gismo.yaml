@@ -1,0 +1,11 @@
+name: gismo
+channels:
+  - conda-forge
+  - dtk
+dependencies:
+  - eigen
+  - opennurbs
+  - mumps-include == 5.1.2
+  - mumps == 5.1.2
+  - mumps-mpi == 5.1.2
+
