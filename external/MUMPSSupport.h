@@ -12,10 +12,10 @@
 
 #include "Eigen/Sparse"
 
-#include <MUMPS/dmumps_c.h>
-#include <MUMPS/smumps_c.h>
-#include <MUMPS/cmumps_c.h>
-#include <MUMPS/zmumps_c.h>
+#include <dmumps_c.h>
+#include <smumps_c.h>
+#include <cmumps_c.h>
+#include <zmumps_c.h>
 
 #include <complex>
 #include <stdexcept>

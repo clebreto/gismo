@@ -12,7 +12,6 @@
 */
 
 #include <gismo.h>
-#include <MUMPSSupport.h>
 
 using namespace gismo;
 
@@ -91,6 +90,23 @@ int main(int argc, char** argv)
 
         Q.makeCompressed(); // always call makeCompressed after sparse matrix has been filled
       }
+
+#ifdef GISMO_WITH_MUMPS
+    const gsMpi & mpi = gsMpi::init(argc, argv);
+    gsMpiComm comm = mpi.worldComm();
+    gsEigen::MUMPSLDLT<gsSparseMatrix<>,gsEigen::Lower> solverMLU;
+    timer.restart();
+    solverMLU.compute(Q);
+    compute_time = timer.stop();
+    timer.restart();
+    x = solverMLU.solve(b);
+    solver_time = timer.stop();
+    gsInfo << "Solve Ax = b with MUMPS.\n";
+    if (!fmat.empty()){x0 = x;}
+    report( x, x0, succeeded );
+#   else
+    gsInfo << "MUMPS is not available.\n";
+#   endif
 
     gsSparseSolver<>::CGIdentity solverCGI;
     timer.restart();
@@ -181,21 +197,6 @@ int main(int argc, char** argv)
     gsInfo << "Solve Ax = b with Eigen's LU factorization.\n";
     if (!fmat.empty()){x0 = x;}
     report( x, x0, succeeded );
-
-
-#ifdef GISMO_WITH_MUMPS
-    gsSparseSolver<>::SuperLU solverSLU;
-    solverSLU.compute(Q);
-    x = solverSLU.solve(b);
-    gsInfo << "Solve Ax = b with Super.\n";
-    if (!fmat.empty()){x0 = x;}
-    report( x, x0, succeeded );
-
-#   else
-    gsInfo << "MUMPS is not available.\n";
-#   endif
-
-
 
 #ifdef GISMO_WITH_PARDISO
     gsSparseSolver<>::PardisoLU solverpLU;

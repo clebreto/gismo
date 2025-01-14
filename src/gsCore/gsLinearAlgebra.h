@@ -63,6 +63,10 @@
 #include <gsEigen/PaStiXSupport>
 #endif
 
+#ifdef GISMO_WITH_MUMPS
+#include <MUMPSSupport.h>
+#endif
+
 // sparsesuite
 //#include <gsEigen/UmfPackSupport>
 //#include <gsEigen/SPQRSupport>
