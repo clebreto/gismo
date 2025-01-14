@@ -236,10 +236,10 @@ void MumpsBase<Derived>::init(bool const is_matrix_symmetric)
     std::cout << "Initialisation complete!\nSet verbosity levels\n";
 
     // Verbosity levels (six is lots of noise)
-    m_solver.icntl[0] = 6;
-    m_solver.icntl[1] = 6;
-    m_solver.icntl[2] = 6;
-    m_solver.icntl[3] = 6;
+    m_solver.icntl[0] = 0;
+    m_solver.icntl[1] = 0;
+    m_solver.icntl[2] = 0;
+    m_solver.icntl[3] = 0;
 
     // Ordering algorithm
     m_solver.icntl[6] = internal::mumps::ordering::automatic;
