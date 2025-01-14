@@ -208,7 +208,7 @@ get_target_property(TCLAP_INCLUDE_DIRS TCLAP::TCLAP  INTERFACE_INCLUDE_DIRECTORI
 include_directories(${TCLAP_INCLUDE_DIRS})
 
 find_package(RapidXML 1.1.3 REQUIRED)
-include_directories(${RapidXML_INCLUDE_DIRS})
+include_directories(${RapidXML_INCLUDE_DIR})
 
 #first time
 include_directories(${GISMO_INCLUDE_DIRS})
