@@ -114,6 +114,11 @@ if  (${GISMO_WITH_PASTIX})
 message ("  GISMO_WITH_PASTIX       ${GISMO_WITH_PASTIX}")
 endif()
 
+option(GISMO_WITH_MUMPS         "With Mumps"               false  )
+if  (${GISMO_WITH_MUMPS})
+message ("  GISMO_WITH_MUMPS       ${GISMO_WITH_MUMPS}")
+endif()
+
 option(GISMO_WITH_SUPERLU        "With SuperLU"              false  )
 if  (${GISMO_WITH_SUPERLU})
 message ("  GISMO_WITH_SUPERLU      ${GISMO_WITH_SUPERLU}")

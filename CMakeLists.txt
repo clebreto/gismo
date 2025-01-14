@@ -218,6 +218,11 @@ if(GISMO_WITH_MPI)
   CACHE INTERNAL "${PROJECT_NAME} extra linker objects" FORCE)
 endif(GISMO_WITH_MPI)
 
+if(GISMO_WITH_MUMPS)
+  find_package(MUMPS REQUIRED)
+  include_directories(${MUMPS_INCLUDE_DIR})
+endif(GISMO_WITH_MUMPS)
+
 if(${GISMO_COEFF_TYPE} STREQUAL "mpq_class")
   include(external/gsGmp.cmake)
 endif()

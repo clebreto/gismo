@@ -12,6 +12,7 @@
 */
 
 #include <gismo.h>
+#include <MUMPSSupport.h>
 
 using namespace gismo;
 
@@ -180,6 +181,21 @@ int main(int argc, char** argv)
     gsInfo << "Solve Ax = b with Eigen's LU factorization.\n";
     if (!fmat.empty()){x0 = x;}
     report( x, x0, succeeded );
+
+
+#ifdef GISMO_WITH_MUMPS
+    gsSparseSolver<>::SuperLU solverSLU;
+    solverSLU.compute(Q);
+    x = solverSLU.solve(b);
+    gsInfo << "Solve Ax = b with Super.\n";
+    if (!fmat.empty()){x0 = x;}
+    report( x, x0, succeeded );
+
+#   else
+    gsInfo << "MUMPS is not available.\n";
+#   endif
+
+
 
 #ifdef GISMO_WITH_PARDISO
     gsSparseSolver<>::PardisoLU solverpLU;
