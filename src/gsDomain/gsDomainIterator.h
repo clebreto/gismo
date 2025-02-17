@@ -78,10 +78,12 @@ public:
     : m_domainIter(give(_other.m_domainIter))
     { }
 
+    /*
     gsDomainIteratorWrapper(const gsDomainIteratorWrapper & _other)
     {
         m_domainIter = _other.clone();
     }
+    */
 
     gsDomainIteratorWrapper & operator=(gsDomainIteratorWrapper && _other)
     {

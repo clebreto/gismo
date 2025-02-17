@@ -94,10 +94,10 @@ private:
         return;
     }
 
-    virtual gsVector<T> lowerCorner() const
+    virtual gsVector<T> lowerCorner() const override
     { return m_cur.lowerCorner(); }
 
-    virtual gsVector<T> upperCorner() const
+    virtual gsVector<T> upperCorner() const override
     { return m_cur.upperCorner(); }
 
 }; // class gsCompositeDomainIterator
@@ -141,7 +141,7 @@ public:
 
     const domainContainer & subdomains() const { return m_domains;}
 
-    iterator beginAll() const { return new gsCompositeDomainIterator<T>(m_domains); }
+    iterator beginAll() const  override { return new gsCompositeDomainIterator<T>(m_domains); }
 
     /// See \ref gsDomain.h for documentation.
     size_t numElements() const override
