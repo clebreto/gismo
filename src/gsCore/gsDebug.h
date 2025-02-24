@@ -224,7 +224,6 @@ static const int  gismo_set_abort_behavior = _set_abort_behavior(
 // 161  - unrecognized pragma
 // 175  - subscript out of range
 //        to avoid warnings on #pragma GCC diagnostic          
-//consistent-missing-override
 #pragma warning push
   #pragma warning disable 2196 279 161 175
 
@@ -234,7 +233,7 @@ static const int  gismo_set_abort_behavior = _set_abort_behavior(
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Wconstant-logical-operand"
   #pragma clang diagnostic ignored "-Wbind-to-temporary-copy"
-  #pragma clang diagnostic ignored "-Winconsistent-missing-override"
+//  #pragma clang diagnostic ignored "-Winconsistent-missing-override"
 
 #elif defined __GNUC__ // major version >=4
 // typedef locally defined but not used [-Wunused-local-typedefs]

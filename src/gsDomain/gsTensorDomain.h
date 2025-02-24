@@ -95,7 +95,7 @@ public: // more members
     {
         gsMatrix<T> result(2,D);
         for (short_t i = 0; i < D; ++i)
-            result.col(i) = m_knotVectors[i]->boundingBox();
+            result.row(i) = m_knotVectors[i]->boundingBox();
         return result;
     }
 
