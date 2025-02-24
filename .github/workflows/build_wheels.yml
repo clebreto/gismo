@@ -92,9 +92,9 @@ jobs:
         CIBW_BUILD: ${{ matrix.cw_build }}
         CIBW_TEST_SKIP: "*-*linux_{aarch64,ppc64le,s390x}"
 
-    - uses: actions/upload-linux_wheel_qemu
+    - uses: actions/upload-artifact@v4
       with:
-        name: artifact-ubuntu-qemu
+        name: artifact-linux_wheel_qemu
         path: ./wheelhouse/*.whl
         overwrite: true
 
