@@ -3,6 +3,7 @@ channels:
   - conda-forge
   - dtk
 dependencies:
+  - cmake
   - eigen=3.3
   - opennurbs
   - tclap=1.4
