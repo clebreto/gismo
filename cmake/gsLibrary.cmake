@@ -215,10 +215,10 @@ endif(GISMO_BUILD_LIB)
 
 list (FIND GISMO_OPTIONAL "gsOpennurbs" _index)
 if (${_index} GREATER -1)
-  find_package(openNURBS REQUIRED)
+  find_package(opennurbs REQUIRED)
 
   #TODO Check found if not cmake error
-  target_link_libraries(${PROJECT_NAME} openNURBS)
+  target_link_libraries(${PROJECT_NAME} opennurbs)
 endif()
 
 if (EIGEN_USE_MKL_ALL)

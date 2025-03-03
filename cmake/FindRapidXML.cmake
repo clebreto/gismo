@@ -1,19 +1,23 @@
-# - Try to find RapidXML
-# Once done this will define
-#  RAPIDXML_FOUND - System has RapidXML
-#  RapidXML_INCLUDE_DIR - The RapidXML include directories
+# - Find RapidXML
+# Find the RapidXML includes
+# This module defines:
+#   RAPIDXML_FOUND         - True if RapidXML was found.
+#   RAPIDXML_INCLUDE_DIRS  - Include directories for RapidXML.
 
-find_path(RapidXML_INCLUDE_DIR rapidxml.hpp PATH_SUFFIXES rapidxml)
+find_path(RAPIDXML_INCLUDE_DIRS
+    NAMES rapidxml/rapidxml.hpp
+    HINTS "${CMAKE_INSTALL_PREFIX}/include"
+)
 
+# Handle the REQUIRED and QUIETLY arguments using CMake's standard function.
 include(FindPackageHandleStandardArgs)
-# handle the QUIETLY and REQUIRED arguments and set RAPIDXML_FOUND to TRUE
-# if all listed variables are TRUE
-find_package_handle_standard_args(RapidXML DEFAULT_MSG RapidXML_INCLUDE_DIR)
+find_package_handle_standard_args(RapidXML
+    REQUIRED_VARS RAPIDXML_INCLUDE_DIRS
+    FAIL_MESSAGE "Could NOT find RapidXML (missing: ${RAPIDXML_INCLUDE_DIRS})"
+)
 
-mark_as_advanced(RapidXML_INCLUDE_DIR)
-
-if(RAPIDXML_FOUND)
-    # provide import target:
-	 add_library(RapidXML::RapidXML INTERFACE IMPORTED)
-	 set_target_properties(RapidXML::RapidXML PROPERTIES INTERFACE_INCLUDE_DIRECTORIES ${RapidXML_INCLUDE_DIR})
+# If the package is found, set up include directories and libraries.
+if(RapidXML_FOUND)
+    message(STATUS "Found RapidXML: Include dirs: ${RAPIDXML_INCLUDE_DIRS}")
 endif()
+
