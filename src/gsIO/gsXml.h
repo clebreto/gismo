@@ -188,8 +188,135 @@ namespace internal {
 
 typedef rapidxml::xml_node<char>        gsXmlNode;
 typedef rapidxml::xml_attribute<char>   gsXmlAttribute;
-typedef rapidxml::xml_document<char>    gsXmlTree;
+// typedef rapidxml::xml_document<char>    gsXmlTree;
 
+// /////////////////////////////////////////////////////////////////////////////
+//
+// /////////////////////////////////////////////////////////////////////////////
+
+class gsXmlTree : public rapidxml::xml_document<char>
+{
+protected:
+    int max_Id = -1;
+    unsigned m_float_precision = 16;
+
+public:
+    rapidxml::xml_node<char> *makeRoot(void)
+    {
+        rapidxml::xml_node<char> * root =
+            this->allocate_node(rapidxml::node_element,this->allocate_string("xml"));
+        this->append_node(root);
+        return root;
+    }
+
+    inline rapidxml::xml_node<char> *getRoot(void) const
+    {
+        return this->first_node();
+    }
+
+    inline int maxId(void) const
+    {
+        return max_Id;
+    }
+
+    inline int numNodes(void) const
+    {
+        return max_Id+1;
+    }
+
+    void appendToRoot(rapidxml::xml_node<char> *node, int id = -1, std::string label="")
+    {
+        char tmp[6];
+        snprintf(tmp, 6, "%d", (unsigned short)(-1==id ? ++max_Id : id ));
+        node->append_attribute(this->allocate_attribute(
+        this->allocate_string("id"), this->allocate_string(tmp) ) );
+        if (label!="")
+            node->append_attribute(this->allocate_attribute(
+            this->allocate_string("label"), this->allocate_string(label.c_str()) ) );
+        getRoot()->append_node(node);
+        if (-1!=id) max_Id = std::max(id,max_Id);
+    }
+
+    void appendToRoot(rapidxml::xml_node<char> *node, std::string label)
+    {
+        appendToRoot(node, -1, label);
+    }
+
+    inline unsigned getFloatPrecision(void) const
+    {
+        return m_float_precision;
+    }
+
+    inline void setFloatPrecision(const unsigned k)
+    {
+        m_float_precision = k;
+    }
+
+    //! Parses zero-terminated XML string according to given flags.
+    //! Passed string will be modified by the parser, unless rapidxml::parse_non_destructive flag is used.
+    //! The string must persist for the lifetime of the document.
+    //! In case of error, rapidxml::parse_error exception will be thrown.
+    //! <br><br>
+    //! If you want to parse contents of a file, you must first load the file into the memory, and pass pointer to its beginning.
+    //! Make sure that data is zero-terminated.
+    //! <br><br>
+    //! Document can be parsed into multiple times.
+    //! Each new call to parse removes previous nodes and attributes (if any), but does not clear memory pool.
+    //! \param text XML data to parse; pointer is non-const to denote fact that this data may be modified by the parser.
+    template<int Flags>
+    void parse(char *text, bool appendContents = false)
+    {
+        assert(text);
+
+        if (!appendContents)
+        {
+            // Remove current contents
+            this->remove_all_nodes();
+            this->remove_all_attributes();
+        }
+
+        // Parse BOM, if any
+        parse_bom<Flags>(text);
+
+        // Parse children
+        while (1)
+        {
+            // Skip whitespace before node
+            skip<whitespace_pred, Flags>(text);
+            if (*text == 0)
+                break;
+
+            // Parse and append new child
+            if (*text == char('<'))
+            {
+                ++text;     // Skip '<'
+                if (xml_node<char> *node = parse_node<Flags>(text))
+                    this->append_node(node);
+            }
+        }
+
+    }
+
+    //! Clears the document by deleting all nodes and clearing the memory pool.
+    //! All nodes owned by document pool are destroyed.
+    void clear()
+    {
+        this->remove_all_nodes();
+        this->remove_all_attributes();
+        this->max_Id = -1;
+        memory_pool<char>::clear();
+    }
+
+    struct whitespace_pred
+    {
+        static unsigned char test(char ch)
+        {
+            return rapidxml::internal::lookup_tables<0>::lookup_whitespace[static_cast<unsigned char>(ch)];
+        }
+    };
+};
+
+// /////////////////////////////////////////////////////////////////////////////
 
 /// Generic get XML class: specializations provide implementation
 template<class Object>
@@ -270,7 +397,7 @@ inline gsXmlNode* searchId(const int id, gsXmlNode* root,
 /// \param label the label which is sought for
 /// \param tag_name Limit search to tags named \em tag_name .
 /// \param print_warning Print warning if search was not successful
-inline gsXmlNode* searchLabel(const std::string label, 
+inline gsXmlNode* searchLabel(const std::string label,
                            gsXmlNode* root,
                            const char* tag_name = NULL,
                            const bool print_warning = true) {
@@ -330,18 +457,18 @@ char * makeValue(const gsMatrix<T> & value, gsXmlTree & data,
 
 /// Helper to allocate XML attribute
 GISMO_EXPORT gsXmlAttribute *  makeAttribute( const std::string & name,
-				              const std::string & value, gsXmlTree & data);
+                              const std::string & value, gsXmlTree & data);
 
 /// Helper to allocate XML attribute with unsigned int value
 GISMO_EXPORT gsXmlAttribute *  makeAttribute( const std::string & name,
-					           const unsigned & value, gsXmlTree & data);
+                               const unsigned & value, gsXmlTree & data);
 
 /// Helper to allocate XML node
 GISMO_EXPORT gsXmlNode *  makeNode( const std::string & name, gsXmlTree & data);
 
 /// Helper to allocate XML node with value
 GISMO_EXPORT gsXmlNode * makeNode( const std::string & name,
-			             const std::string & value, gsXmlTree & data);
+                         const std::string & value, gsXmlTree & data);
 
 /// Helper to create an XML comment node
 GISMO_EXPORT gsXmlNode *  makeComment(const std::string &, gsXmlTree & data);

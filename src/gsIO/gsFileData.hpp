@@ -285,7 +285,7 @@ bool gsFileData<T>::readGismoXmlStream(std::istream & is, bool recursive)
     }
 
     gsXmlNode * root = data->getRoot();
-    root->merge_sibling(ln);
+    // root->merge_sibling(ln);
     data->remove_node(ln);
 
     // TO DO: Check if it contains unknown tags...
@@ -306,7 +306,7 @@ void gsFileData<T>::addInclude( const std::string & filename, const real_t & tim
 
 template<class T>
 void gsFileData<T>::getInclude(gsFileData<T> & res, index_t id, real_t time, std::string label)
-{   
+{
     // Ensures that only one argument is actually provided
     GISMO_ENSURE(( (id!=-1) ^  (time!=-1.) ^  (label!="") ) &&
                 !(id!=-1 && time!=-1. && label!=""),
@@ -317,7 +317,7 @@ void gsFileData<T>::getInclude(gsFileData<T> & res, index_t id, real_t time, std
     if ( id!=-1 )
     {
         attr_name   = "id";
-        attr_string = std::to_string(id); 
+        attr_string = std::to_string(id);
     }
     else if ( time!=-1)
     {
@@ -328,7 +328,7 @@ void gsFileData<T>::getInclude(gsFileData<T> & res, index_t id, real_t time, std
     {
         attr_name   = "label";
         attr_string = label;
-    } 
+    }
 
     gsXmlNode * root = getXmlRoot();
 
@@ -1266,9 +1266,9 @@ bool gsFileData<T>::readOffFile( String const & fn )
 
     /* //verb-read
     std::ifstream buffer(fn);
-    std::ostringstream bb; bb << buffer.rdbuf();    
+    std::ostringstream bb; bb << buffer.rdbuf();
     gsXmlNode* m = internal::makeNode("SurfMesh", *data);
-    m->append_attribute( internal::makeAttribute("type", "off", *data) );        
+    m->append_attribute( internal::makeAttribute("type", "off", *data) );
     m->value( internal::makeValue( bb.str(), *data) );
     data->appendToRoot(m);
     return true;
@@ -1899,7 +1899,7 @@ void read_iges_pd128(char *s, int begin, std::stringstream & ss)
                 if (s[i] == ',')
                 {
                     // j=0: 128
-                    //(j=1..4: data in b[] ) 
+                    //(j=1..4: data in b[] )
                     // 5 integer parameters:
                     // j=5: closed in first direction
                     // j=6: closed in second direction
@@ -1926,7 +1926,7 @@ void read_iges_pd128(char *s, int begin, std::stringstream & ss)
                 }
                 if ( 10 == j )
                 {
-                    endknot = b[0]+b[2]+2+b[1]+b[3]+2;   
+                    endknot = b[0]+b[2]+2+b[1]+b[3]+2;
                     phase=1; // knots start
                 }
             }
@@ -1968,7 +1968,7 @@ void read_iges_pd128(char *s, int begin, std::stringstream & ss)
                 m++;
                 break;
             }
-        
+
             if (c == endknot)
             {
                 ss<<","<<b[3]<<",";
@@ -2042,7 +2042,7 @@ void read_iges_pd126(char *s, int begin, std::stringstream & ss)
                 if (s[i] == ',')
                 {
                     // j=0: 126
-                    //(j=1..2: data in b[] ) 
+                    //(j=1..2: data in b[] )
                     // j=3: planar
                     // j=4: open/closed curve
                     // j=5: rational
