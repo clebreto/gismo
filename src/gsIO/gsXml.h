@@ -316,6 +316,11 @@ public:
     };
 };
 
+inline std::basic_ostream<char> &operator <<(std::basic_ostream<char> &out, const rapidxml::xml_node<char> &node)
+{
+    return print(out, node);
+}
+
 // /////////////////////////////////////////////////////////////////////////////
 
 /// Generic get XML class: specializations provide implementation

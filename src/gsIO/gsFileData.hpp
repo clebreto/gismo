@@ -122,7 +122,9 @@ gsFileData<T>::save(std::string const & fname, bool compress)  const
 
     std::ofstream fn( tmp.c_str() );
     //rapidxml::print_no_indenting
-    fn<< *data;
+
+    fn << *data;
+
     fn.close();
     data->remove_node( data->first_node() );
 }
