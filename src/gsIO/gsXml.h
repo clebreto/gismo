@@ -19,8 +19,28 @@
 // Default memory sizes
 // #define RAPIDXML_STATIC_POOL_SIZE  ( 64*1024 )
 // #define RAPIDXML_DYNAMIC_POOL_SIZE ( 64*1024 )
-
-#include <rapidxml/rapidxml.hpp>             // External file
+#include <rapidxml/rapidxml.hpp>
+namespace rapidxml { namespace internal {
+        template<class OutIt, class Ch>
+        OutIt print_children(OutIt out, const xml_node<Ch> *node, int flags, int indent);
+        template<class OutIt, class Ch>
+        OutIt print_element_node(OutIt out, const xml_node<Ch> *node, int flags, int indent);
+        template<class OutIt, class Ch>
+        OutIt print_data_node(OutIt out, const xml_node<Ch> *node, int flags, int indent);
+        template<class OutIt, class Ch>
+        OutIt print_cdata_node(OutIt out, const xml_node<Ch> *node, int flags, int indent);
+        template<class OutIt, class Ch>
+        OutIt print_element_node(OutIt out, const xml_node<Ch> *node, int flags, int indent);
+        template<class OutIt, class Ch>
+        OutIt print_declaration_node(OutIt out, const xml_node<Ch> *node, int flags, int indent);
+        template<class OutIt, class Ch>
+        OutIt print_comment_node(OutIt out, const xml_node<Ch> *node, int flags, int indent);
+        template<class OutIt, class Ch>
+        OutIt print_doctype_node(OutIt out, const xml_node<Ch> *node, int flags, int indent);
+        template<class OutIt, class Ch>
+        OutIt print_pi_node(OutIt out, const xml_node<Ch> *node, int flags, int indent);
+    }
+}
 #include <rapidxml/rapidxml_print.hpp>       // External file
 //#include <rapidxml/rapidxml_utils.hpp>     // External file
 //#include <rapidxml/rapidxml_iterators.hpp> // External file
