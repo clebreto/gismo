@@ -19,7 +19,11 @@
 // Default memory sizes
 // #define RAPIDXML_STATIC_POOL_SIZE  ( 64*1024 )
 // #define RAPIDXML_DYNAMIC_POOL_SIZE ( 64*1024 )
+#define private public
+#define protected public
 #include <rapidxml/rapidxml.hpp>
+#undef private
+#undef protected
 namespace rapidxml { namespace internal {
         template<class OutIt, class Ch>
         OutIt print_children(OutIt out, const xml_node<Ch> *node, int flags, int indent);
@@ -314,7 +318,6 @@ public:
                     this->append_node(node);
             }
         }
-
     }
 
     //! Clears the document by deleting all nodes and clearing the memory pool.
@@ -335,6 +338,32 @@ public:
         }
     };
 };
+
+//! Appends a new child node.
+//! The appended child becomes the last child.
+//! \param child Node to append.
+inline void merge_sibling(rapidxml::xml_node<char> *source, rapidxml::xml_node<char> *sibl)
+{
+    if (source==sibl) return;
+    rapidxml::xml_node<char> * child = sibl->m_first_node;
+    if (!child) return;
+
+    if (source->first_node())
+    {
+        child->m_prev_sibling = source->m_last_node;
+        source->m_last_node->m_next_sibling = child;
+    }
+    else
+    {
+        child->m_prev_sibling = 0;
+        source->m_first_node = child;
+    }
+    for (rapidxml::xml_node<char> *node = sibl->m_first_node; node; node = node->m_next_sibling)
+        node->m_parent = source;
+    source->m_last_node = sibl->m_last_node;
+    sibl->m_first_node = sibl->m_last_node = 0;
+    //sibl->m_parent->remove_node(sibl);
+}
 
 inline std::basic_ostream<char> &operator <<(std::basic_ostream<char> &out, const rapidxml::xml_node<char> &node)
 {

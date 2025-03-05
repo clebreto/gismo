@@ -287,7 +287,9 @@ bool gsFileData<T>::readGismoXmlStream(std::istream & is, bool recursive)
     }
 
     gsXmlNode * root = data->getRoot();
-    // root->merge_sibling(ln);
+
+    internal::merge_sibling(root, ln);
+
     data->remove_node(ln);
 
     // TO DO: Check if it contains unknown tags...
