@@ -218,9 +218,7 @@ private:
     gsVector<T> lower, upper;
 
 public:
-
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW
-
 }; // class gsTensorDomainIterator
 
 
