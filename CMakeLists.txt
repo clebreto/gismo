@@ -34,6 +34,14 @@ if(POLICY CMP0077)# CMake 3.13
 cmake_policy(SET CMP0077 NEW)
 endif()
 
+if(POLICY CMP0135)
+cmake_policy(SET CMP0135 NEW)
+endif()
+
+if(POLICY CMP0169)
+cmake_policy(SET CMP0169 OLD)
+endif()
+
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 if(NOT CMAKE_RUNTIME_OUTPUT_DIRECTORY)
   set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
@@ -184,9 +192,7 @@ set(INCLUDE_INSTALL_DIR include CACHE STRING "Installation directory for header 
 #functions to fetch(download) head revision from git or Subversion
 include(gsFetch)
 
-find_package(Eigen3 3.3 REQUIRED NO_MODULE)
-
-include_directories(${EIGEN3_INCLUDE_DIRS})
+include(external/gsEigen.cmake)
 
 if (EIGEN_USE_MKL_ALL)
   # See http://eigen.tuxfamily.org/dox/TopicUsingIntelMKL.html
@@ -203,12 +209,9 @@ if (";${GISMO_OPTIONAL};" MATCHES ";gsCoDiPack;")
   gismo_fetch_module(gsCoDiPack)
 endif()
 
-find_package(TCLAP 1.4 REQUIRED)
-get_target_property(TCLAP_INCLUDE_DIRS TCLAP::TCLAP  INTERFACE_INCLUDE_DIRECTORIES)
-include_directories(${TCLAP_INCLUDE_DIRS})
+include(external/gsTCLAP.cmake)
 
-find_package(RapidXML 1.13 REQUIRED)
-include_directories(${RapidXML_INCLUDE_DIR})
+include(external/gsRapidXML.cmake)
 
 #first time
 include_directories(${GISMO_INCLUDE_DIRS})

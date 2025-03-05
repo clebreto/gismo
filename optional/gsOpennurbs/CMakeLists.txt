@@ -9,9 +9,12 @@
 project(gsOpennurbs LANGUAGES CXX)
 
 # Find the opennurbs library package
-find_package(opennurbs REQUIRED)
-get_target_property(opennurbs_INCLUDE_DIR opennurbs INTERFACE_INCLUDE_DIRECTORIES)
-include_directories(${opennurbs_INCLUDE_DIR})
+# find_package(opennurbs REQUIRED)
+
+include(${CMAKE_SOURCE_DIR}/external/gsOpenNurbs.cmake)
+
+# get_target_property(opennurbs_INCLUDE_DIR opennurbs INTERFACE_INCLUDE_DIRECTORIES)
+# include_directories(${opennurbs_INCLUDE_DIR})
 
 set(OPENNURBS_SOURCES
 gsReadOpenNurbs.cpp
