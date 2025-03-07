@@ -25,7 +25,7 @@ if(NOT opennurbs_FOUND)
 
     FetchContent_Declare(
         opennurbs
-        GIT_REPOSITORY git@gitlab.inria.fr:dream/opennurbs.git
+        GIT_REPOSITORY https://gitlab.inria.fr/gismo/opennurbs.git
         GIT_TAG master
     )
 
@@ -35,7 +35,7 @@ if(NOT opennurbs_FOUND)
 
         # Configure and build OpenNurbs
         execute_process(
-            COMMAND ${CMAKE_COMMAND} -G "${CMAKE_GENERATOR}" .
+            COMMAND ${CMAKE_COMMAND} -G "${CMAKE_GENERATOR}" -DCMAKE_POSITION_INDEPENDENT_CODE=ON .
             WORKING_DIRECTORY ${opennurbs_SOURCE_DIR}
             RESULT_VARIABLE result
         )
