@@ -40,7 +40,7 @@ endif()
 
 include_directories(${RapidXML_INCLUDE_DIR})
 
-message(STATUS "RapidXML include dirs: ${RapidXML_INCLUDE_DIR}")
+message(STATUS "RapidXML include dir: ${RapidXML_INCLUDE_DIR}")
 
 ## #############################################################################
 ## Code ends here
