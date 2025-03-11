@@ -14,14 +14,14 @@
 
 # pragma once
 
-// Assumes that Eigen library has been already included
+// Assumes that gsEigen library has been already included
 
 
 namespace gismo
 {
 
 /** @brief
-    Sparse vector class, based on Eigen::SparseVector.
+    Sparse vector class, based on gsEigen::SparseVector.
 
     \tparam T coefficient type
     \tparam _Option zero is ColMajor order.
@@ -31,14 +31,14 @@ namespace gismo
 */
 
 template<typename T, int _Options, typename _Index>
-class gsSparseVector : public Eigen::SparseVector<T,_Options,_Index>
+class gsSparseVector : public gsEigen::SparseVector<T,_Options,_Index>
 {
 public:
 
-    typedef Eigen::SparseVector<T,_Options,_Index> Base;
+    typedef gsEigen::SparseVector<T,_Options,_Index> Base;
     
     // Type pointing to a block of the sparse vector
-    typedef typename Eigen::Block<Base> Block;
+    typedef typename gsEigen::Block<Base> Block;
     
     // Type pointing to a block view of the sparse vector
     typedef gsMatrixBlockView<Base> BlockView;
@@ -51,33 +51,33 @@ public:
     gsSparseVector(_Index rows) : Base(rows) { }
 
     /// This constructor allows constructing a gsSparseVector from
-    /// Eigen expressions
+    /// gsEigen expressions
     template<typename OtherDerived>
-    gsSparseVector(const Eigen::EigenBase<OtherDerived>& other)  : Base(other) { }
+    gsSparseVector(const gsEigen::EigenBase<OtherDerived>& other)  : Base(other) { }
 
     /// This constructor allows constructing a gsSparseVector from
     /// another sparse expression
     template<typename OtherDerived> 
-    gsSparseVector(const Eigen::MatrixBase<OtherDerived>& other)  : Base(other) { }
+    gsSparseVector(const gsEigen::MatrixBase<OtherDerived>& other)  : Base(other) { }
     
     /// This constructor allows constructing a gsSparseVector from
     /// another sparse expression
     template<typename OtherDerived> 
-    gsSparseVector(const Eigen::SparseMatrixBase<OtherDerived>& other)  : Base(other) { }
+    gsSparseVector(const gsEigen::SparseMatrixBase<OtherDerived>& other)  : Base(other) { }
 
     /// This constructor allows constructing a gsSparseVector from
     /// another sparse expression
     template<typename OtherDerived> 
-    gsSparseVector(const Eigen::ReturnByValue<OtherDerived>& other)  : Base(other) { }
+    gsSparseVector(const gsEigen::ReturnByValue<OtherDerived>& other)  : Base(other) { }
     
     ~gsSparseVector() { }
     
 #if !EIGEN_HAS_RVALUE_REFERENCES
-    // Using the assignment operators of Eigen
+    // Using the assignment operators of gsEigen
     // Note: using Base::operator=; is ambiguous in MSVC
 #ifdef _MSC_VER
-    template <class EigenExpr>
-    gsSparseVector& operator= (const EigenExpr & other) 
+    template <class gsEigenExpr>
+    gsSparseVector& operator= (const gsEigenExpr & other)
     {
         this->Base::operator=(other);
         return *this;
