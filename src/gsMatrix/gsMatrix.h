@@ -120,7 +120,7 @@ public:
     typedef gsEigen::VectorBlock<const gsEigen::Block<const gsEigen::Matrix<T,_Rows,_Cols>,-1,1,true>,3> CCol3DType;
 
 public:  // Solvers related to gsMatrix
-    typedef typename gsEigen::EigenSolver<Base> gsEigenSolver;
+    typedef typename gsEigen::EigenSolver<Base> EigenSolver;
 
     typedef typename gsEigen::SelfAdjointEigenSolver<Base> SelfAdjEigenSolver;
 
