@@ -30,7 +30,7 @@ template <class T, bool IsRowMajor = true>
 class gsFiberMatrix
 {
 public:
-    typedef Eigen::SparseVector<T> Fiber;
+    typedef gsEigen::SparseVector<T> Fiber;
 
     class InnerIterator : Fiber::InnerIterator
     {

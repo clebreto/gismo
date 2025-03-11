@@ -100,9 +100,9 @@ install(FILES ${PROJECT_SOURCE_DIR}/external/gdcpp.h
         DESTINATION include/${PROJECT_NAME})
 
 # For gsXmlUtils.h
-install(FILES ${PROJECT_SOURCE_DIR}/external/rapidxml/rapidxml.hpp
-              ${PROJECT_SOURCE_DIR}/external/rapidxml/rapidxml_print.hpp
-        DESTINATION include/${PROJECT_NAME}/rapidxml/ )
+# install(FILES ${PROJECT_SOURCE_DIR}/external/rapidxml/rapidxml.hpp
+#               ${PROJECT_SOURCE_DIR}/external/rapidxml/rapidxml_print.hpp
+#         DESTINATION include/${PROJECT_NAME}/rapidxml/ )
 
 if (GISMO_WITH_ADIFF)
   install(FILES ${PROJECT_SOURCE_DIR}/external/gsAutoDiff.h
