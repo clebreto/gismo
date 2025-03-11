@@ -14,23 +14,24 @@
 ## Code starts here
 ## #############################################################################
 
-find_package(opennurbs QUIET)
+find_package(ZLIB)
 
-if(NOT opennurbs_FOUND)
-
-    message(STATUS "Opennurbs not found, fetching ...")
+if(NOT ZLIB_FOUND)
+    message(STATUS "ZLIB not found, fetching ...")
 
     include(FetchContent)
-    include(GNUInstallDirs)
 
     FetchContent_Declare(
-        opennurbs
-        GIT_REPOSITORY https://gitlab.inria.fr/gismo/opennurbs.git
-        GIT_TAG master
-    )
+        zlib
+        GIT_REPOSITORY https://github.com/madler/zlib.git
+        GIT_TAG v1.3.1)
 
-    FetchContent_MakeAvailable(opennurbs)
+    FetchContent_MakeAvailable(zlib)
+else()
+    add_library(zlib ALIAS ZLIB::ZLIB)
 endif()
+
+message(STATUS "ZLIB include dirs: ${ZLIB_INCLUDE_DIRS}")
 
 ## #############################################################################
 ## Code ends here

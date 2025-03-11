@@ -1,4 +1,3 @@
-
 #####################################################################
 ## CMakeLists.txt --- root
 ## This file is part of the G+Smo library.
@@ -192,6 +191,8 @@ set(INCLUDE_INSTALL_DIR include CACHE STRING "Installation directory for header 
 #functions to fetch(download) head revision from git or Subversion
 include(gsFetch)
 
+include(external/gszlib.cmake)
+include(external/gsgzstream.cmake)
 include(external/gsEigen.cmake)
 
 if (EIGEN_USE_MKL_ALL)
@@ -215,9 +216,6 @@ include(external/gsRapidXML.cmake)
 
 #first time
 include_directories(${GISMO_INCLUDE_DIRS})
-
-# Add externals directory
-add_subdirectory(external)
 
 if(GISMO_WITH_MPI)
   find_package(MPI REQUIRED)

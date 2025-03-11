@@ -91,6 +91,8 @@ endif()
 
 add_library(${PROJECT_NAME} OBJECT ${OPENNURBS_SOURCES}) #STATIC
 
+target_link_libraries(${PROJECT_NAME} opennurbs)
+
 #target_link_libraries(${PROJECT_NAME} Rpcrt4) # Note: linked with gismolib instead
 
 if("x${CMAKE_CXX_COMPILER_ID}" STREQUAL "xMSVC")
