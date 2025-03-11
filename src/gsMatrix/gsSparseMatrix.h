@@ -30,7 +30,7 @@ namespace gismo
    \ingroup Matrix
 */
 template<typename T>
-class gsSparseEntries : public std::vector<Eigen::Triplet<T,index_t> >
+class gsSparseEntries : public std::vector<gsEigen::Triplet<T,index_t> >
 {
 public:
     typedef gsEigen::Triplet<T,index_t> Triplet;

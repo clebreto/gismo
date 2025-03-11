@@ -75,7 +75,7 @@ public:
     {
         GISMO_ASSERT(m_mat.rows()!=0 && m_mat.cols()!=0,"The matrix has zero rows or columns. Is the matrix a temporary (e.g. A-B)?");
         gsAsVector<Scalar>(y_out, m_mat.rows()).noalias() =
-            m_mat.template selfadjointView<Eigen::Lower>() * gsAsConstVector<Scalar>(x_in,  m_mat.cols());
+            m_mat.template selfadjointView<gsEigen::Lower>() * gsAsConstVector<Scalar>(x_in,  m_mat.cols());
     }
 };
 
@@ -112,7 +112,7 @@ public:
 
     void set_shift(const Scalar& sigma)
     {
-        MatrixType mat(m_mat.template selfadjointView<Eigen::Lower>());
+        MatrixType mat(m_mat.template selfadjointView<gsEigen::Lower>());
         MatrixType identity(m_n,m_n);
         identity.setIdentity();
 
@@ -260,7 +260,7 @@ public:
     /// See Spectra/SparseRegularInverse.h for help
     void perform_op(const Scalar* x_in, Scalar* y_out) const
     {
-        gsAsVector<Scalar>(y_out, m_n).noalias() = m_mat.template selfadjointView<Eigen::Lower>() * gsAsConstVector<Scalar>(x_in,  m_n);
+        gsAsVector<Scalar>(y_out, m_n).noalias() = m_mat.template selfadjointView<gsEigen::Lower>() * gsAsConstVector<Scalar>(x_in,  m_n);
     }
 };
 
@@ -299,8 +299,8 @@ public:
 
     void set_shift(const Scalar& sigma)
     {
-        MatrixType matA = m_A.template selfadjointView<Eigen::Lower>();
-        MatrixType matB = m_B.template selfadjointView<Eigen::Lower>();
+        MatrixType matA = m_A.template selfadjointView<gsEigen::Lower>();
+        MatrixType matB = m_B.template selfadjointView<gsEigen::Lower>();
         MatrixType mat = matA - sigma * matB;
 
         #ifndef GISMO_WITH_PARDISO

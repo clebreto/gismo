@@ -151,7 +151,7 @@ std::ostream &operator<<(std::ostream &os, const gsSparseSolver<T>& b)
 
 #define GISMO_EIGEN_SPARSE_SOLVER(gsname, eigenName)                    \
     template<typename T>                                                \
-    class gsname : public gsSparseSolver<T>, public EigenAdaptor<T>::eigenName \
+    class gsname : public gsSparseSolver<T>, public gsEigenAdaptor<T>::eigenName \
     {                                                                   \
         typedef typename gsSparseSolver<T>::MatrixT MatrixT;            \
         typedef typename gsSparseSolver<T>::VectorT VectorT;            \
@@ -163,23 +163,23 @@ std::ostream &operator<<(std::ostream &os, const gsSparseSolver<T>& b)
             : m_rows(0),m_cols(0)                                       \
         {}                                                              \
         gsname(const MatrixT &matrix)                                   \
-            : EigenAdaptor<T>::eigenName(matrix), m_rows(matrix.rows()),m_cols(matrix.cols()) \
+            : gsEigenAdaptor<T>::eigenName(matrix), m_rows(matrix.rows()),m_cols(matrix.cols()) \
         {}                                                              \
         gsname& compute   (const MatrixT &matrix)                       \
         {                                                               \
             m_rows=matrix.rows();                                       \
             m_cols=matrix.cols();                                       \
-            EigenAdaptor<T>::eigenName::compute(matrix);              \
+            gsEigenAdaptor<T>::eigenName::compute(matrix);              \
             return *this;                                               \
         }                                                               \
         VectorT solve  (const VectorT &rhs) const                       \
         {                                                               \
-            return EigenAdaptor<T>::eigenName::solve(rhs);            \
+            return gsEigenAdaptor<T>::eigenName::solve(rhs);            \
         }                                                               \
         bool succeed() const                                            \
-        { return EigenAdaptor<T>::eigenName::info()==Eigen::Success;} \
+        { return gsEigenAdaptor<T>::eigenName::info()==Eigen::Success;} \
         int info() const                                                \
-        { return EigenAdaptor<T>::eigenName::info();}                 \
+        { return gsEigenAdaptor<T>::eigenName::info();}                 \
         index_t rows() const {return m_rows;}                           \
         index_t cols() const {return m_cols;}                           \
         std::ostream &print(std::ostream &os) const                     \

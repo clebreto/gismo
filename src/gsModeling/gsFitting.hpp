@@ -251,7 +251,7 @@ gsMatrix<T> gsFitting<T>::principal_curvatures(const gsMatrix<T> & params)
       pm = params.col(d);
       out = ev.eval( shapeop(G), pm );
 
-      pcs = out.template selfadjointView<Eigen::Lower>().eigenvalues();
+      pcs = out.template selfadjointView<gsEigen::Lower>().eigenvalues();
 
       m_pointCurvature.row(d) = pcs.transpose();
 
@@ -998,7 +998,7 @@ void gsFitting<T>::computeMaxNormErrors()
             }
 
             //const T err = (m_points.row(k) - values.col(k).transpose()).cwiseAbs().maxCoeff();
-            const T err = (m_points.row(k) - values.transpose()).template lpNorm<Eigen::Infinity>();
+            const T err = (m_points.row(k) - values.transpose()).template lpNorm<gsEigen::Infinity>();
 
             m_pointErrors.push_back(err);
 
@@ -1078,7 +1078,7 @@ void gsFitting<T>::get_Error(std::vector<T>& errors, int type) const
 
             results.transposeInPlace();
 
-            err = (m_points.row(k) - results).template lpNorm<Eigen::Infinity>();
+            err = (m_points.row(k) - results).template lpNorm<gsEigen::Infinity>();
 
                     switch (type)
                     {
