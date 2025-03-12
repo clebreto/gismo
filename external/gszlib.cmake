@@ -14,6 +14,8 @@
 ## Code starts here
 ## #############################################################################
 
+set(ZLIB_USE_STATIC_LIBS ON)
+
 find_package(ZLIB)
 
 if(NOT ZLIB_FOUND)
@@ -27,11 +29,13 @@ if(NOT ZLIB_FOUND)
         GIT_TAG v1.3.1)
 
     FetchContent_MakeAvailable(zlib)
+
+    set(ZLIB_INCLUDE_DIRS ${zlib_SOURCE_DIR}) ${zlib_BINARY_DIR}
 else()
-    add_library(zlib ALIAS ZLIB::ZLIB)
+    add_library(zlibstatic ALIAS ZLIB::ZLIB)
 endif()
 
-message(STATUS "ZLIB include dirs: ${ZLIB_INCLUDE_DIRS}")
+include_directories(${ZLIB_INCLUDE_DIRS})
 
 ## #############################################################################
 ## Code ends here

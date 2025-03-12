@@ -219,11 +219,11 @@ if (${_index} GREATER -1)
   include(${CMAKE_SOURCE_DIR}/external/gsOpenNurbs.cmake)
 
   # TODO Check found if not cmake error
-  target_link_libraries(${PROJECT_NAME} PRIVATE opennurbs)
+  target_link_libraries(${PROJECT_NAME} PUBLIC opennurbs)
 endif()
 
-target_link_libraries(${PROJECT_NAME}_static PRIVATE zlib)
-target_link_libraries(${PROJECT_NAME}        PRIVATE zlib)
+target_link_libraries(${PROJECT_NAME}_static PRIVATE zlibstatic)
+target_link_libraries(${PROJECT_NAME}        PRIVATE zlibstatic)
 
 target_link_libraries(${PROJECT_NAME}_static PRIVATE gzstream)
 target_link_libraries(${PROJECT_NAME}        PRIVATE gzstream)

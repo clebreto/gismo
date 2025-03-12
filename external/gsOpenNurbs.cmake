@@ -30,7 +30,11 @@ if(NOT opennurbs_FOUND)
     )
 
     FetchContent_MakeAvailable(opennurbs)
+
+    set(OPENNURBS_INCLUDE_DIR ${opennurbs_SOURCE_DIR})
 endif()
+
+include_directories(${OPENNURBS_INCLUDE_DIR})
 
 ## #############################################################################
 ## Code ends here
