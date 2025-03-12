@@ -30,7 +30,7 @@ if(NOT ZLIB_FOUND)
 
     FetchContent_MakeAvailable(zlib)
 
-    set(ZLIB_INCLUDE_DIRS ${zlib_SOURCE_DIR}) ${zlib_BINARY_DIR}
+    set(ZLIB_INCLUDE_DIRS ${zlib_SOURCE_DIR} ${zlib_BINARY_DIR})
 else()
     add_library(zlibstatic ALIAS ZLIB::ZLIB)
 endif()
